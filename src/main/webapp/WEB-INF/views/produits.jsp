@@ -19,9 +19,9 @@
 <f:form modelAttribute="produit" action="saveProd" enctype="multipart/form-data">
 <table>
 <tr>
-<td>ID Produit</td>
-<td><f:input type="hidden" path="idProduit"/>${produit.idProduit}</td>
-<td><f:errors path="idProduit" cssClass="errors"></f:errors></td>
+<td>ID Produit:</td>
+<td>${produit.idProduit }<f:input type="hidden" path="idProduit"/></td>
+<td><f:errors path="idProduit"></f:errors> </td>
 </tr>
 <tr>
 <td>Categorie</td>
@@ -84,7 +84,7 @@
 <td>${p.prix}</td>	
 <td>${p.selected}</td>
 <td>${p.quantite}</td>
-<td><img alt="" src="photoProd?idProd=${p.idProduit }"></td>
+<td><img src="photoProd?idProd=${p.idProduit }"></td>
 <td><a href="suppProd?idProd=${p.idProduit }">Supp</a></td>
 <td><a href="editProd?idProd=${p.idProduit }">Edit</a></td>
 </tr>

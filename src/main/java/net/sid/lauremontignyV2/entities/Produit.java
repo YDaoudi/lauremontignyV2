@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,15 +24,16 @@ public class Produit implements Serializable {
 	private String description; 
 	private double prix;
 	private boolean selected;
-    @NotEmpty
-	private String photo; 
+	@Lob
+	private byte[] photo;
+	private String nomPhoto;
 	@ManyToOne
 	@JoinColumn(name="idCategorie")
 	private Categorie categorie;
 	private int quantite ;
 	
 	public Produit(int reference, String description, double prix, boolean selected,
-			String photo, int quantite) {
+			byte[] photo, int quantite,String nomPhoto) {
 		super();
 		this.reference = reference;
 		this.description = description;
@@ -39,6 +41,14 @@ public class Produit implements Serializable {
 		this.selected = selected;
 		this.photo = photo;
 		this.quantite = quantite;
+		this.nomPhoto = nomPhoto;
+
+	}
+	public String getNomPhoto() {
+		return nomPhoto;
+	}
+	public void setNomPhoto(String nomPhoto) {
+		this.nomPhoto = nomPhoto;
 	}
 	public Produit() {
 		super();
@@ -76,10 +86,10 @@ public class Produit implements Serializable {
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
-	public void setPhoto(String photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 	public Categorie getCategorie() {

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -90,7 +91,7 @@ public class AdminController  {
 
 
 	@RequestMapping(value="/saveProd")
-	public String saveProd(@Valid Produit p,BindingResult bindingResult, Model model,MultipartFile file ) throws IOException{
+	public @ResponseBody String saveProd(@Valid Produit p,BindingResult bindingResult, Model model,MultipartFile file ) throws IOException{
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("produits",metier.listproduits());
 			model.addAttribute("categories",metier.listCategories());
@@ -98,10 +99,20 @@ public class AdminController  {
 	}
 		
 		if(!file.isEmpty()){
-			String path=System.getProperty("java.io.tmpdir");
-			p.setPhoto(file.getOriginalFilename());
-			Long idP=metier.ajouterProduit(p,p.getCategorie().getIdCategorie());
-			file.transferTo(new File(path+"/"+"PROD_"+idP+"_"+file.getOriginalFilename()));			
+			BufferedImage bi =ImageIO.read(file.getInputStream());
+			p.setPhoto(file.getBytes());
+            p.setNomPhoto(file.getOriginalFilename());		}
+
+		if(p.getIdProduit()!=null){
+			if(model.asMap().get("editedCat")!=null)
+			{ if(file.isEmpty())
+			{
+				Produit prod=(Produit)model.asMap().get("editedCat");
+				p.setPhoto(prod.getPhoto());
+			}
+				
+			}
+		metier.modifierProduit(p);;
 		}
 		else{
 			metier.ajouterProduit(p, p.getCategorie().getIdCategorie());
@@ -122,7 +133,7 @@ public class AdminController  {
 	public byte[] getPhotoC(Long idCat) throws IOException{ 
 		Categorie c=metier.getCategorie(idCat); 
 		//if(c.getPhoto()==null) 
-			//return new byte[0];//
+			//return new byte[0];
 	return IOUtils.toByteArray(new ByteArrayInputStream(c.getPhoto()));
 	}
 
@@ -131,11 +142,9 @@ public class AdminController  {
 	@ResponseBody
 	public byte[] getPhotoP(Long idProd) throws IOException{ 
 		Produit p=metier.getProduit(idProd); 
-		
-			
-		File f= new File(System.getProperty("java.io.tmpdir")+"/PROD_"+idProd+"_"+p.getPhoto());
-	 return IOUtils.toByteArray(new FileInputStream(f));
-	 
+		/*if(c.getPhoto()==null) 
+			return new byte[0];*/
+	return IOUtils.toByteArray(new ByteArrayInputStream(p.getPhoto()));
 	}
 
 
@@ -152,7 +161,7 @@ public class AdminController  {
 
 
 	@RequestMapping(value="/suppProd")
-	public String SupProd(Long idProd,Model model){
+	public String SupProd(@ModelAttribute("produit")Long idProd,Model model){
 		metier.supprimerProduit(idProd);
 	model.addAttribute("produit",new Produit());
 	model.addAttribute("produits",metier.listproduits());
@@ -176,14 +185,22 @@ public class AdminController  {
 
 
 	@RequestMapping(value="/editProd")
-	public String editProd(Long idProd,Model model){
+	public String editProd(@ModelAttribute("produit")Long idProd,Model model){
 		Produit p=metier.getProduit(idProd);
 
 	model.addAttribute("produit",p);
 	model.addAttribute("produits",metier.listproduits());
+	model.addAttribute("categories",metier.listCategories());
 	return "produits";
 	}
 
+	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object object, Exception exp) {
+		// TODO Auto-generated method stub
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("exception", exp.getMessage());
+		mv.setViewName("categorie");
+		return mv;
+	}
 
 	
 }

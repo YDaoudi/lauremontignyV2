@@ -40,8 +40,8 @@ public class Test1 {
 			new ClassPathXmlApplicationContext(new String[]{"applicationContext.xml"});
            IAdmin Metier = (IAdmin) context.getBean("metier");
            List<Produit> prod1 = Metier.listproduits();
-           Metier.ajouterProduit(new Produit(1234, "DELL", 43, true, "image", 30), 1L);
-           Metier.ajouterProduit(new Produit(1234,"Prod2",34,true,"image",6) ,1L);
+           Metier.ajouterProduit(new Produit(1234, "DELL", 43, true,null, 30, null), 1L);
+           Metier.ajouterProduit(new Produit(1234,"Prod2",34,true,null,6,null) ,1L);
            List<Produit> prod2 = Metier.listproduits();
            assertTrue(prod1.size()+2==prod2.size());
 		} catch (Exception e) {
