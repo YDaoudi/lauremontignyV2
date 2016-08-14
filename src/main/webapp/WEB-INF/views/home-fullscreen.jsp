@@ -14,16 +14,16 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!--Master Slider Styles-->
-    <link href="masterslider/style/masterslider.css" rel="stylesheet" media="screen">
+    <link href="./resources/masterslider/style/masterslider.css" rel="stylesheet" media="screen">
     <!--Styles-->
-    <link href="css/styles.css" rel="stylesheet" media="screen">
+    <link href="./resources/css/styles.css" rel="stylesheet" media="screen">
     <!--Color Scheme-->
-    <link class="color-scheme" href="css/colors/color-default.css" rel="stylesheet" media="screen">
+    <link class="color-scheme" href="../../resources/css/colors/color-default.css" rel="stylesheet" media="screen">
     <!--Color Switcher-->
-    <link href="color-switcher/color-switcher.css" rel="stylesheet" media="screen">
+    <link href="./resources/color-switcher/color-switcher.css" rel="stylesheet" media="screen">
     <!--Modernizr-->
-		<script src="js/libs/modernizr.custom.js"></script>
-    <link rel="stylesheet" href="/Users/daoudiyassine/Desktop/Laure Montgny/font-awesome-4.6.3/css/font-awesome.min.css">
+		<script src="./resources/js/libs/modernizr.custom.js"></script>
+    <link rel="stylesheet" href="../../resources/font-awesome-4.6.3/css/font-awesome.min.css">
 
     <!--Adding Media Queries Support for IE8-->
     <!--[if lt IE 9]>
@@ -199,7 +199,7 @@
           <!--Slide 4-->
           <div class="ms-slide" data-delay="7">
             <div class="overlay"></div>
-            <img src="masterslider/blank.gif" data-src="img/hero/slideshow/slide_5.jpg" alt="Crescent"/>
+            <img src="../../resources/img/masterslider/blank.gif" data-src="../../resources/img/hero/slideshow/slide_5.jpg" alt="Crescent"/>
             <h2 style="width: 456px; left: 110px; top: 110px;color: white;" class="white-color ms-layer" data-effect="left(50,true)" data-duration="700" data-delay="250" data-ease="easeOutQuad">Crescent</h2>
             <p style="width: 456px; left: 110px; top: 210px;" class="dark-color ms-layer" data-effect="left(50,true)" data-duration="700" data-delay="500" data-ease="easeOutQuad">In this slider (which works both on touch screen and desktop devices) you can change the title, the description and button texts. It's all that you need to demonstrate your top rated products. </p>
             <div style="left: 110px; top: 330px;" class="ms-layer button" data-effect="left(50,true)" data-duration="500" data-delay="750" data-ease="easeOutQuad"><a class="btn btn-black" href="shop-filters-left-3cols.html">Voir le catalogue</a></div>
